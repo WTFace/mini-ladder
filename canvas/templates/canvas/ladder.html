@@ -1,0 +1,76 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+</head>
+<body>
+{% if res.REMOTE_ADDR in allowed %}
+    <div id="container">
+    </div>
+    
+<script>
+    alert('{{res.REMOTE_ADDR}}')
+    let left_wall;
+    let right_wall;
+    let ball;
+    myGameArea.run()
+
+    let myGameArea = {
+        canvas : document.createElement("canvas"),
+        run : function() {
+            this.canvas.width = 420;
+            this.canvas.height = 360;
+            this.context = this.canvas.getContext("2d");
+            document.querySelector('#container').insertBefore(this.canvas, document.querySelector('#container').childNodes[0]);
+            ball = new component(25, 25, "red", 70, 20);
+            left_wall  = new component(25, 225, "blue", 70, 70);
+            right_wall  = new component(25, 225, "blue", 275, 70);
+            ball.update()
+            left_wall.update();
+            right_wall.update()
+            this.interval = setInterval(updateGameArea, 50);
+        },
+        clear : function() {
+            this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
+        },
+        stop : function() {
+            clearInterval(this.interval);
+        }
+    }
+
+    function component(width, height, color, x, y) {
+        this.width = width;
+        this.height = height;
+        this.speedX = 0;
+        this.speedY = 1;    
+        this.x = x;
+        this.y = y;
+        this.wasLeft = 0;
+        if (x < 100) this.wasLeft = 1
+        
+        this.update = function() {
+            ctx = myGameArea.context;
+            ctx.fillStyle = color;
+            ctx.fillRect(this.x, this.y, this.width, this.height);
+            // ctx.globalCompositeOperation='destination-over';
+        }
+    }
+
+    function updateGameArea() {
+        if (ball.y > left_wall.y + left_wall.height-ball.height) myGameArea.stop()
+        myGameArea.clear();
+        left_wall.update();
+        right_wall.update();
+        ball.update();
+        ball.x += ball.speedX;
+        ball.y += ball.speedY;    
+    }
+
+</script>
+{% else %}
+    {{res.REMOTE_ADDR}}
+{% endif %}
+</body>
+</html>
