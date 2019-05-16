@@ -15,37 +15,45 @@
         <progress id="bar" value="0" max="300000"></progress>
     </div>
     <div id="timer"></div>
+
 <script>
-    let bridge;
-    let bridge2;
+    let bridge, bridge2, bridge3;
     let left_wall;
     let right_wall;
     let ball;
+    const X = 70; const Y = 70;
+    const radius = 20;
+    const bridgeWidth = 150
     const current = new Date();
     let val = (current.getMinutes()%5)*60000;
 
 
     function startGame() {
-        bridge = new component(180, 25, "skyblue", 95, 120);
-        bridge2 = new component(180, 25, "skyblue", 95, 170);
-        ball = new component(25, 25, "red", 70, 20);
+        // for (var i = 1; i <= n; i++) {
+        //     Things[i]
+        // }
+        bridge = new component(bridgeWidth, radius, "skyblue", X+radius, 120);
+        bridge2 = new component(bridgeWidth, radius, "skyblue", X+radius, 170);
+        ball = new component(radius, radius, "red", X, Y);
+        bridge.update();
+        bridge2.update();
         myGameArea.run();
     }
 
     let myGameArea = {
         canvas : document.createElement("canvas"),
         init: function(){
-            this.canvas.width = 420;
+            this.canvas.width = 380;
             this.canvas.height = 360;
             this.context = this.canvas.getContext("2d");
             document.querySelector('#container').insertBefore(this.canvas, document.querySelector('#container').childNodes[0]);
-            left_wall  = new component(25, 225, "skyblue", 70, 70);
-            right_wall  = new component(25, 225, "skyblue", 275, 70);
+            left_wall  = new component(radius, 225, "skyblue", X, Y);
+            right_wall  = new component(radius, 225, "skyblue", X+radius+bridgeWidth, Y);
             left_wall.update();
             right_wall.update()
         },
         run : function() {
-            this.interval = setInterval(updateGameArea, 20);
+            this.interval = setInterval(updateGameArea, 15);
         },
         clear : function() {
             this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
@@ -69,6 +77,7 @@
             ctx = myGameArea.context;
             ctx.fillStyle = color;
             ctx.fillRect(this.x, this.y, this.width, this.height);
+            ctx.globalCompositeOperation='srouce-over';
         }
         this.crashRight = function(otherobj) {
             let myleft = this.x;
@@ -122,29 +131,26 @@
             console.log(ball.x, ball.speedX, ball.wasLeft)
         }
         if (ball.y > left_wall.y + left_wall.height-ball.height) myGameArea.stop()
-        myGameArea.clear();
-        left_wall.update();
-        right_wall.update();
-        bridge.update();
-        bridge2.update();
+        // myGameArea.clear();
         ball.update();
         ball.x += ball.speedX;
         ball.y += ball.speedY;    
     }
 
-    let myVar = setInterval(refreshGame, 1000);
+    // let myVar = setInterval(refreshGame, 1000);
 
-    function refreshGame() {
-      let d = new Date();
-      document.getElementById("timer").innerHTML = d.toLocaleTimeString() + ' (5분마다 시작)';
-      val += 1000
-      document.querySelector("progress").value = val
-      if (d.getMinutes()%5===0 && d.getSeconds()===0) {
-        val = 0
-        startGame()
-      }
-    }
+    // function refreshGame() {
+    //   let d = new Date();
+    //   document.getElementById("timer").innerHTML = d.toLocaleTimeString() + ' (5분마다 시작)';
+    //   val += 1000
+    //   document.querySelector("progress").value = val
+    //   if (d.getMinutes()%5===0 && d.getSeconds()===0) {
+    //     val = 0
+    //     startGame()
+    //   }
+    // }
     myGameArea.init();
+    startGame()
 </script>
 {% else %}
     {{res.REMOTE_ADDR}}
