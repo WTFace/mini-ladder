@@ -3,19 +3,21 @@
 <html>
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<link rel="stylesheet" type="text/css" href="{% static 'canvas/main.css' %}">
 
 </head>
 <body>
 {% if res.REMOTE_ADDR in allowed %}
     <div id="container">
     </div>
-    
+
 <script>
-    alert('{{res.REMOTE_ADDR}}')
+    let bridge;
+    let bridge2;
     let left_wall;
     let right_wall;
     let ball;
-    myGameArea.run()
+    myGameArea.run();
 
     let myGameArea = {
         canvas : document.createElement("canvas"),
@@ -24,13 +26,14 @@
             this.canvas.height = 360;
             this.context = this.canvas.getContext("2d");
             document.querySelector('#container').insertBefore(this.canvas, document.querySelector('#container').childNodes[0]);
+            bridge = new component(180, 25, "skyblue", 95, 120);
+            bridge2 = new component(180, 25, "skyblue", 95, 170);
             ball = new component(25, 25, "red", 70, 20);
-            left_wall  = new component(25, 225, "blue", 70, 70);
-            right_wall  = new component(25, 225, "blue", 275, 70);
-            ball.update()
+            left_wall  = new component(25, 225, "skyblue", 70, 70);
+            right_wall  = new component(25, 225, "skyblue", 275, 70);
             left_wall.update();
-            right_wall.update()
-            this.interval = setInterval(updateGameArea, 50);
+            right_wall.update();
+            this.interval = setInterval(updateGameArea, 20);
         },
         clear : function() {
             this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
@@ -56,18 +59,67 @@
             ctx.fillRect(this.x, this.y, this.width, this.height);
             // ctx.globalCompositeOperation='destination-over';
         }
+        this.crashRight = function(otherobj) {
+            let myleft = this.x;
+            let otherleft = otherobj.x;
+            let crash = true;
+            if (myleft < otherleft) {
+                crash = false;
+            }
+            return crash
+        }
+        this.crashLeft = function(otherobj) {
+            let myleft = this.x;
+            let otherleft = otherobj.x;
+            let crash = true;
+            if (myleft > otherleft) {
+                crash = false;
+            }
+            return crash
+        }
+        this.crashBot = function(otherobj) {
+            let mytop = this.y;
+            let othertop = otherobj.y;
+            let crash = true;
+            if (mytop !== othertop) {
+                crash = false;
+            }
+            return crash
+        }
+
     }
 
     function updateGameArea() {
+        if ((ball.crashRight(right_wall) && ball.wasLeft===1) || (ball.crashLeft(left_wall)) && ball.wasLeft===0) {
+            if(ball.speedX !==0 ) ball.y += 1
+            if (ball.x>200) {
+                ball.wasLeft = 0
+            }else{
+                ball.wasLeft = 1
+            }
+            ball.speedY = 1
+            ball.speedX = 0
+        }
+        
+        if ((ball.crashBot(bridge)|| ball.crashBot(bridge2)) && ball.speedY===1) {
+            ball.speedY = 0
+            if (ball.x>200) {
+                ball.speedX = -1
+            }else{
+                ball.speedX = 1
+            }
+            console.log(ball.x, ball.speedX, ball.wasLeft)
+        }
         if (ball.y > left_wall.y + left_wall.height-ball.height) myGameArea.stop()
         myGameArea.clear();
         left_wall.update();
         right_wall.update();
+        bridge.update();
+        bridge2.update();
         ball.update();
         ball.x += ball.speedX;
         ball.y += ball.speedY;    
     }
-
 </script>
 {% else %}
     {{res.REMOTE_ADDR}}
