@@ -9,30 +9,42 @@
 <body>
 {% if res.REMOTE_ADDR in allowed %}
     <div id="container">
+        <div id="result">result even odd</div>
     </div>
-
+    <div class="progress-container">
+        <progress id="bar" value="0" max="300000"></progress>
+    </div>
+    <div id="timer"></div>
 <script>
     let bridge;
     let bridge2;
     let left_wall;
     let right_wall;
     let ball;
-    myGameArea.run();
+    const current = new Date();
+    let val = (current.getMinutes()%5)*60000;
+
+
+    function startGame() {
+        bridge = new component(180, 25, "skyblue", 95, 120);
+        bridge2 = new component(180, 25, "skyblue", 95, 170);
+        ball = new component(25, 25, "red", 70, 20);
+        myGameArea.run();
+    }
 
     let myGameArea = {
         canvas : document.createElement("canvas"),
-        run : function() {
+        init: function(){
             this.canvas.width = 420;
             this.canvas.height = 360;
             this.context = this.canvas.getContext("2d");
             document.querySelector('#container').insertBefore(this.canvas, document.querySelector('#container').childNodes[0]);
-            bridge = new component(180, 25, "skyblue", 95, 120);
-            bridge2 = new component(180, 25, "skyblue", 95, 170);
-            ball = new component(25, 25, "red", 70, 20);
             left_wall  = new component(25, 225, "skyblue", 70, 70);
             right_wall  = new component(25, 225, "skyblue", 275, 70);
             left_wall.update();
-            right_wall.update();
+            right_wall.update()
+        },
+        run : function() {
             this.interval = setInterval(updateGameArea, 20);
         },
         clear : function() {
@@ -57,7 +69,6 @@
             ctx = myGameArea.context;
             ctx.fillStyle = color;
             ctx.fillRect(this.x, this.y, this.width, this.height);
-            // ctx.globalCompositeOperation='destination-over';
         }
         this.crashRight = function(otherobj) {
             let myleft = this.x;
@@ -120,6 +131,20 @@
         ball.x += ball.speedX;
         ball.y += ball.speedY;    
     }
+
+    let myVar = setInterval(refreshGame, 1000);
+
+    function refreshGame() {
+      let d = new Date();
+      document.getElementById("timer").innerHTML = d.toLocaleTimeString() + ' (5분마다 시작)';
+      val += 1000
+      document.querySelector("progress").value = val
+      if (d.getMinutes()%5===0 && d.getSeconds()===0) {
+        val = 0
+        startGame()
+      }
+    }
+    myGameArea.init();
 </script>
 {% else %}
     {{res.REMOTE_ADDR}}
