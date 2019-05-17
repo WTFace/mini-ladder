@@ -17,33 +17,38 @@
     <div id="timer"></div>
 
 <script>
-    let bridge, bridge2, bridge3;
     let left_wall;
     let right_wall;
     let ball;
-    const X = 70; const Y = 70;
-    const radius = 20;
-    const bridgeWidth = 150
+    let bridges = []
+    const X = 95; const Y = 70;
+    const radius = 18;
+    const ballStart = 'L';
+    const bridgeWidth = 130;
+    const firstBridgeY = 112;
+
     const current = new Date();
     let val = (current.getMinutes()%5)*60000;
 
 
-    function startGame() {
-        // for (var i = 1; i <= n; i++) {
-        //     Things[i]
-        // }
-        bridge = new component(bridgeWidth, radius, "skyblue", X+radius, 120);
-        bridge2 = new component(bridgeWidth, radius, "skyblue", X+radius, 170);
-        ball = new component(radius, radius, "red", X, Y);
-        bridge.update();
-        bridge2.update();
+    function startGame(n, side) {
+        for (var i = 0; i < n; i++) {
+            bridges.push(new component(bridgeWidth, radius, "skyblue", X+radius, firstBridgeY+radius*i*2));
+            bridges[i].update()
+        }
+        if (side === 'L') {
+            ball = new component(radius, radius, "red", X, Y);
+        }else{
+            ball = new component(radius, radius, "red", X+radius+bridgeWidth, Y);
+        }
+
         myGameArea.run();
     }
 
     let myGameArea = {
         canvas : document.createElement("canvas"),
         init: function(){
-            this.canvas.width = 380;
+            this.canvas.width = 360;
             this.canvas.height = 360;
             this.context = this.canvas.getContext("2d");
             document.querySelector('#container').insertBefore(this.canvas, document.querySelector('#container').childNodes[0]);
@@ -106,13 +111,20 @@
             }
             return crash
         }
+        this.crashBridge = function(){
+            let mytop = this.y;
+            for(b of bridges){
+                if(mytop === b.y) return true
+            }
+            return false
+        }
 
     }
 
     function updateGameArea() {
         if ((ball.crashRight(right_wall) && ball.wasLeft===1) || (ball.crashLeft(left_wall)) && ball.wasLeft===0) {
             if(ball.speedX !==0 ) ball.y += 1
-            if (ball.x>200) {
+            if (ball.x>X+radius) {
                 ball.wasLeft = 0
             }else{
                 ball.wasLeft = 1
@@ -121,14 +133,15 @@
             ball.speedX = 0
         }
         
-        if ((ball.crashBot(bridge)|| ball.crashBot(bridge2)) && ball.speedY===1) {
+        // if ((ball.crashBot(bridge)|| ball.crashBot(bridge2) || ball.crashBot(bridge3)) && ball.speedY===1) {
+        if (ball.crashBridge() && ball.speedY===1) {
             ball.speedY = 0
-            if (ball.x>200) {
-                ball.speedX = -1
+            if (ball.x>X+radius) {
+                ball.speedX = -2
             }else{
-                ball.speedX = 1
+                ball.speedX = 2
             }
-            console.log(ball.x, ball.speedX, ball.wasLeft)
+            console.log(`x:${ball.x}, speedX:${ball.speedX}, wasLeft:${ball.wasLeft}`)
         }
         if (ball.y > left_wall.y + left_wall.height-ball.height) myGameArea.stop()
         // myGameArea.clear();
@@ -137,20 +150,20 @@
         ball.y += ball.speedY;    
     }
 
-    // let myVar = setInterval(refreshGame, 1000);
+    let myVar = setInterval(refreshGame, 1000);
 
-    // function refreshGame() {
-    //   let d = new Date();
-    //   document.getElementById("timer").innerHTML = d.toLocaleTimeString() + ' (5분마다 시작)';
-    //   val += 1000
-    //   document.querySelector("progress").value = val
-    //   if (d.getMinutes()%5===0 && d.getSeconds()===0) {
-    //     val = 0
-    //     startGame()
-    //   }
-    // }
+    function refreshGame() {
+      let d = new Date();
+      document.getElementById("timer").innerHTML = d.toLocaleTimeString() + ' (5분마다 시작)';
+      val += 1000
+      document.querySelector("progress").value = val
+      if (d.getMinutes()%5===0 && d.getSeconds()===0) {
+        val = 0
+        startGame(4,'L')
+      }
+    }
     myGameArea.init();
-    startGame()
+    // startGame(4, 'R')
 </script>
 {% else %}
     {{res.REMOTE_ADDR}}
