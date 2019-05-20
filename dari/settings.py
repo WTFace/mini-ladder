@@ -25,15 +25,15 @@ SECRET_KEY = 'g7_(ley(dgx^j)h33x41e@+=$q_!i+#ukvejeo%lh+t1@=+kfh'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['localhost']
+ALLOWED_HOSTS = ['27.123.14.55', 'localhost']
 
 
 # Application definition
 
 INSTALLED_APPS = [
-    'canvas.apps.CanvasConfig',
     'django.contrib.admin',
     'django.contrib.auth',
+    'canvas.apps.CanvasConfig',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
@@ -104,7 +104,8 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/2.2/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+# LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'ko-kr'
 
 TIME_ZONE = 'UTC'
 
