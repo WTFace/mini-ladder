@@ -4,4 +4,5 @@ from . import views
 urlpatterns = [
     path('', views.home, name='canvas-home'),
     path('dari/', views.ladder),
+    path('select/<int:id>', views.get_one),
 ]
