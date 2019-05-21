@@ -35,6 +35,10 @@
 
 
     function startGame(n, side) {
+        bridges = [];
+        myGameArea.clear();
+        left_wall.update();right_wall.update();
+
         for (var i = 0; i < n; i++) {
             bridges.push(new component(bridgeWidth, radius, "skyblue", X+radius, firstBridgeY+radius*i*2));
             bridges[i].update()
@@ -105,15 +109,15 @@
             }
             return crash
         }
-        this.crashBot = function(otherobj) {
-            let mytop = this.y;
-            let othertop = otherobj.y;
-            let crash = true;
-            if (mytop !== othertop) {
-                crash = false;
-            }
-            return crash
-        }
+        // this.crashBot = function(otherobj) {
+        //     let mytop = this.y;
+        //     let othertop = otherobj.y;
+        //     let crash = true;
+        //     if (mytop !== othertop) {
+        //         crash = false;
+        //     }
+        //     return crash
+        // }
         this.crashBridge = function(){
             let mytop = this.y;
             for(b of bridges){
@@ -147,7 +151,7 @@
             console.log(`x:${ball.x}, speedX:${ball.speedX}, wasLeft:${ball.wasLeft}`)
         }
         if (ball.y > left_wall.y + left_wall.height-ball.height) myGameArea.stop()
-        // myGameArea.clear();
+        
         ball.update();
         ball.x += ball.speedX;
         ball.y += ball.speedY;    
@@ -162,7 +166,7 @@
       document.querySelector("progress").value = val
       if (d.getMinutes()%3===0 && d.getSeconds()===0) {
         val = 0
-        const id = parseInt((d.getHours()*60 + d.getMinutes())/3) + 1
+        const id = getCurrentID();
         $.get(`/select/${id}`, function(res){
             const data = JSON.parse(res)
             console.log(data, id)
@@ -171,13 +175,18 @@
       }
     }
 
+    function getCurrentID(){
+        let d = new Date();
+        return parseInt((d.getHours()*60 + d.getMinutes())/3) + 1
+    }
+
     myGameArea.init();
+
     // let d = new Date();
-    // const id = parseInt((d.getHours()*60 + d.getMinutes())/3) + 1
-    // console.log(id)
+    // let id = getCurrentID();
     // $.get(`/select/${id}`, function(res){
-    //     console.log(res)
     //     const data = JSON.parse(res)
+    //     console.log(data, id)
     //     startGame(data.bridges, data.start)
     // })
 </script>
