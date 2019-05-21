@@ -4,7 +4,10 @@
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <link rel="stylesheet" type="text/css" href="{% static 'canvas/main.css' %}">
-
+<script
+  src="https://code.jquery.com/jquery-3.4.1.min.js"
+  integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+  crossorigin="anonymous"></script>
 </head>
 <body>
 {% if res.REMOTE_ADDR in allowed %}
@@ -12,7 +15,7 @@
         <div id="result">result even odd</div>
     </div>
     <div class="progress-container">
-        <progress id="bar" value="0" max="300000"></progress>
+        <progress id="bar" value="0" max="180000"></progress>
     </div>
     <div id="timer"></div>
 
@@ -28,7 +31,7 @@
     const firstBridgeY = 112;
 
     const current = new Date();
-    let val = (current.getMinutes()%5)*60000;
+    let val = (current.getMinutes()%3)*60000+ current.getSeconds()*1000;
 
 
     function startGame(n, side) {
@@ -154,16 +157,29 @@
 
     function refreshGame() {
       let d = new Date();
-      document.getElementById("timer").innerHTML = d.toLocaleTimeString() + ' (5분마다 시작)';
+      document.getElementById("timer").innerHTML = d.toLocaleTimeString() + ' (3분마다 시작)';
       val += 1000
       document.querySelector("progress").value = val
-      if (d.getMinutes()%5===0 && d.getSeconds()===0) {
+      if (d.getMinutes()%3===0 && d.getSeconds()===0) {
         val = 0
-        startGame(4,'L')
+        const id = parseInt((d.getHours()*60 + d.getMinutes())/3) + 1
+        $.get(`/select/${id}`, function(res){
+            const data = JSON.parse(res)
+            console.log(data, id)
+            startGame(data.bridges, data.start)
+        })
       }
     }
+
     myGameArea.init();
-    // startGame(4, 'R')
+    // let d = new Date();
+    // const id = parseInt((d.getHours()*60 + d.getMinutes())/3) + 1
+    // console.log(id)
+    // $.get(`/select/${id}`, function(res){
+    //     console.log(res)
+    //     const data = JSON.parse(res)
+    //     startGame(data.bridges, data.start)
+    // })
 </script>
 {% else %}
     {{res.REMOTE_ADDR}}
