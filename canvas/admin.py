@@ -7,10 +7,12 @@ same_start = {'L':'홀','R':'짝'}
 diff_start = {'L':'짝','R':'홀'}
 
 class ResultAdmin(admin.ModelAdmin):
+    list_per_page = 20
     list_display = ['id','start', 'bridges','end']
     list_filter = ['start']
     list_editable = ['start','bridges']
-
+    ordering = ['id']
+    search_fields = ['id',]
     
     def end(self, obj):
         return diff_start[obj.start] if obj.bridges==3 else same_start[obj.start]
