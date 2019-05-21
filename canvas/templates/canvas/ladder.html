@@ -12,7 +12,31 @@
 <body>
 {% if res.REMOTE_ADDR in allowed %}
     <div id="container">
-        <div id="result">result even odd</div>
+        <div id="result">
+            <table>
+                <tr>
+                    <th colspan="4">지난회차</th>
+                </tr>
+            {%for i in history %}
+                <tr>
+                    <td>{{i.id}}</td>
+                {% if i.start == 'L' %}
+                    <td>좌</td>
+                {% else %}
+                    <td>우</td>
+                {% endif %}
+                    <td>{{i.bridges}}</td>
+
+                {% if i.start == 'L' and i.bridges == 4 or i.start == 'R' and i.bridges == 3 %}
+                    <td>홀</td>
+                {% else%}
+                    <td>짝</td>
+                
+                {% endif%}
+                </tr>
+            {%endfor%}
+            </table>
+        </div>
     </div>
     <div class="progress-container">
         <progress id="bar" value="0" max="180000"></progress>
@@ -181,13 +205,12 @@
     }
 
     myGameArea.init();
-
-    // let d = new Date();
     // let id = getCurrentID();
-    // $.get(`/select/${id}`, function(res){
-    //     const data = JSON.parse(res)
-    //     console.log(data, id)
-    //     startGame(data.bridges, data.start)
+    // $.get(`/select_many/${id}`, function(res){
+    //     console.log(res)
+        // const data = JSON.parse(res)
+        // console.log(data, id)
+        // startGame(data.bridges, data.start)
     // })
 </script>
 {% else %}
