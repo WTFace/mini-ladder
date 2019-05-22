@@ -14,9 +14,10 @@
     <div id="container">
         <div id="result">
             <table>
-                <tr>
+                <thead><tr>
                     <th colspan="4">지난회차</th>
-                </tr>
+                </tr></thead>
+            <tbody id="tbody">
             {%for i in history %}
                 <tr>
                     <td>{{i.id}}</td>
@@ -35,6 +36,7 @@
                 {% endif%}
                 </tr>
             {%endfor%}
+            </tbody>
             </table>
         </div>
     </div>
@@ -64,7 +66,10 @@
         left_wall.update();right_wall.update();
 
         for (var i = 0; i < n; i++) {
-            bridges.push(new component(bridgeWidth, radius, "skyblue", X+radius, firstBridgeY+radius*i*2));
+            let _firstY = firstBridgeY;
+            if(n===3) _firstY += radius;
+
+            bridges.push(new component(bridgeWidth, radius, "skyblue", X+radius, _firstY+radius*i*2));
             bridges[i].update()
         }
         if (side === 'L') {
@@ -133,15 +138,6 @@
             }
             return crash
         }
-        // this.crashBot = function(otherobj) {
-        //     let mytop = this.y;
-        //     let othertop = otherobj.y;
-        //     let crash = true;
-        //     if (mytop !== othertop) {
-        //         crash = false;
-        //     }
-        //     return crash
-        // }
         this.crashBridge = function(){
             let mytop = this.y;
             for(b of bridges){
@@ -172,7 +168,7 @@
             }else{
                 ball.speedX = 2
             }
-            console.log(`x:${ball.x}, speedX:${ball.speedX}, wasLeft:${ball.wasLeft}`)
+            // console.log(`x:${ball.x}, speedX:${ball.speedX}, wasLeft:${ball.wasLeft}`)
         }
         if (ball.y > left_wall.y + left_wall.height-ball.height) myGameArea.stop()
         
@@ -195,6 +191,17 @@
             const data = JSON.parse(res)
             console.log(data, id)
             startGame(data.bridges, data.start)
+            const start = data.start==='L'? '좌' : '우';
+            
+            let end = '짝';
+            if ((data.start=='L' && data.bridges===4)||(data.start=='R' && data.bridges===3)) {
+                end = '홀'
+            } 
+            
+            let tr = document.createElement('tr');
+            tr.innerHTML = `<td>${id}</td><td>${start}</td><td>${data.bridges}</td><td>${end}</td>`
+            let tbody = document.getElementById('tbody')
+            tbody.insertBefore(tr, tbody.childNodes[0]);
         })
       }
     }
@@ -205,16 +212,16 @@
     }
 
     myGameArea.init();
-    // let id = getCurrentID();
-    // $.get(`/select_many/${id}`, function(res){
+    // $.get(`/select/${id}`, function(res){
     //     console.log(res)
-        // const data = JSON.parse(res)
-        // console.log(data, id)
-        // startGame(data.bridges, data.start)
+    //     const data = JSON.parse(res)
+    //     console.log(data, id)
+    //     startGame(data.bridges, data.start)
     // })
 </script>
 {% else %}
     {{res.REMOTE_ADDR}}
+    <li>HTTP_REFERER {{res.HTTP_REFERER}}</li>
 {% endif %}
 </body>
 </html>
