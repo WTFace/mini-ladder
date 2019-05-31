@@ -1,4 +1,4 @@
-
+body{background: url('bg1.jpeg');}
 canvas {
     border:1px solid #444;
     background-color: #f1f1f1;
@@ -6,7 +6,13 @@ canvas {
     background-repeat: no-repeat;
     background-size: contain;
 }
+#container{
+    position: relative;
+    display: flex;
+    margin: 0 auto;
+}
 #result span.res{
+    line-height: 1.5;
     width: 24px;
     height: 24px;
     padding: 2px;
@@ -15,7 +21,6 @@ canvas {
     border: 1px solid #333;
     color: #fff;
 }
-
 #result{
     border:1px solid #d3d3d3;
     background-image: linear-gradient(#b1967d, #a28264);
@@ -26,11 +31,6 @@ canvas {
     border: 2px solid #4e3e2f;
     padding: 8px;
     text-align: center
-}
-#container{
-    position: relative;
-    display: flex;
-    margin: 0 auto;
 }
 .result {
     height: 42px;
@@ -76,36 +76,40 @@ span.r{
     background: url(sp_dari.png) no-repeat -150px -210px;
 }
 .progress-container{
-    border: 4px solid #C3A373;
-    background: #916625;
-    border-radius: 5px;
     position: absolute;
-    top: 120px;
-    left: 35px;
-    width: 282px
+    top: 142px;
+    left: 45px;
+    width: 262px;
+    height: 72px;
+}
+#timer{
+    background: url(sp_board.png) no-repeat 0 -590px;
+    height: 100%;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 #bar{
     max-width: 380px;
     width: inherit;
     -webkit-appearance: none;
-    height: 40px;
-    margin-top: 2px;
+    height: 28px;
+    margin-top: -7px;
+    padding: 5px
 }
 ::-webkit-progress-bar {
   background-color: #d3d3d3;
 }
 ::-webkit-progress-value {
-  background-color: gold;
+  background-color: skyblue;
 }
 
 @media only screen and (max-width: 600px) {
-    table{
-        width: 80%;
-        margin: auto;
-    }
     #container{
         display: block;
         overflow: hidden;
+        width: 341px;
     }
     #result{
         height: 260px;
@@ -117,16 +121,16 @@ span.r{
         top: 294px;
     }
     .progress-container{
-        width: 262px
+        width: 262px;
+        top: 134px;
     }
 }
 
 @media only screen and (min-width: 600px) {
     body{
         width: 820px;
-        background: url('bg_wrap.png') no-repeat;
-        background-size: contain;
-        /*background-position: center;*/
+        /*background: url('bg_wrap.png') no-repeat;*/
+        /*background-size: contain;*/
     }
     .logo{
         background: url('logo.png') no-repeat;

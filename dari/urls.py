@@ -20,3 +20,7 @@ urlpatterns = [
     path('', include('canvas.urls')),
     path('admin/', admin.site.urls),
 ]
+
+admin.site.site_header = "Admin"
+admin.site.site_title = "admin"
+admin.site.index_title = ""
