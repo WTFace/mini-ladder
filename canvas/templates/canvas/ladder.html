@@ -36,16 +36,17 @@
                     <span class="res r">짝</span>
                 {% endif%}
             </span>
-            {%endfor%}
-            
+            {%endfor%}      
         </div>
         <span class="circle left"></span>
         <span class="circle right"></span>
         <span class="circle odd"></span>
         <span class="circle even"></span>
         <div class="progress-container">
-            <progress id="bar" value="0" max="180000"></progress>
-            <div id="timer"></div>
+            <div id="timer">
+                <span></span>
+            </div>
+            <progress id="bar" value="0" max="180"></progress>
         </div>
     </div>
     
@@ -55,6 +56,8 @@
     let right_wall;
     let ball;
     let bridges = []
+    const barColor = '#623D0B';
+    const ballColor = 'yellow';
     const X = 95; const Y = 70;
     const radius = 18;
     const ballStart = 'L';
@@ -62,7 +65,7 @@
     const firstBridgeY = 112;
 
     const current = new Date();
-    let val = (current.getMinutes()%3)*60000+ current.getSeconds()*1000;
+    let val = (current.getMinutes()%3)*60+ current.getSeconds();
 
 
     function startGame(n, side) {
@@ -74,13 +77,13 @@
             let _firstY = firstBridgeY;
             if(n===3) _firstY += radius;
 
-            bridges.push(new component(bridgeWidth, radius, "skyblue", X+radius, _firstY+radius*i*2));
+            bridges.push(new component(bridgeWidth, radius, barColor, X+radius, _firstY+radius*i*2));
             bridges[i].update()
         }
         if (side === 'L') {
-            ball = new component(radius, radius, "red", X, Y);
+            ball = new component(radius, radius, ballColor, X, Y);
         }else{
-            ball = new component(radius, radius, "red", X+radius+bridgeWidth, Y);
+            ball = new component(radius, radius, ballColor, X+radius+bridgeWidth, Y);
         }
 
         myGameArea.run();
@@ -93,8 +96,8 @@
             this.canvas.height = 360;
             this.context = this.canvas.getContext("2d");
             document.querySelector('#container').insertBefore(this.canvas, document.querySelector('#container').childNodes[1]);
-            left_wall  = new component(radius, 225, "skyblue", X, Y);
-            right_wall  = new component(radius, 225, "skyblue", X+radius+bridgeWidth, Y);
+            left_wall  = new component(radius, 225, barColor, X, Y);
+            right_wall  = new component(radius, 225, barColor, X+radius+bridgeWidth, Y);
             left_wall.update();
             right_wall.update()
         },
@@ -175,7 +178,12 @@
             }
             // console.log(`x:${ball.x}, speedX:${ball.speedX}, wasLeft:${ball.wasLeft}`)
         }
-        if (ball.y > left_wall.y + left_wall.height-ball.height) myGameArea.stop()
+        if (ball.y > left_wall.y + left_wall.height-ball.height){
+            myGameArea.stop();
+            setTimeout(function(){
+                location.reload()
+            }, 4000)
+        } 
         
         ball.update();
         ball.x += ball.speedX;
@@ -186,44 +194,34 @@
 
     function refreshGame() {
       let d = new Date();
-      document.getElementById("timer").innerHTML = d.toLocaleTimeString() + ' (3분마다 시작)';
-      val += 1000
+      const id = '{{game_id}}'==480 ? 1 : parseInt('{{game_id}}')+1
+      val += 1
+      let secs = 180 - val;
+      document.querySelector("#timer span").innerHTML = parseInt(secs/60)+'분 '+ secs%60+'초 후 '+ id +'회차 시작';
       document.querySelector("progress").value = val
       if (d.getMinutes()%3===0 && d.getSeconds()===0) {
         val = 0
-        const id = getCurrentID();
         $.get(`/select/${id}`, function(res){
             const data = JSON.parse(res)
             console.log(data, id)
             startGame(data.bridges, data.start)
-            const start = data.start==='L'? '<span class="">좌</span>' : '<span class="res-r">우</span>';
+            $('.progress-container').toggle()
+            // const start = data.start==='L'? '<span class="">좌</span>' : '<span class="res-r">우</span>';
             
-            let end = '<span class="res-r">짝</span>';
-            if ((data.start=='L' && data.bridges===4)||(data.start=='R' && data.bridges===3)) {
-                end = '<span class="">홀</span>'
-            } 
+            // let end = '<span class="res-r">짝</span>';
+            // if ((data.start=='L' && data.bridges===4)||(data.start=='R' && data.bridges===3)) {
+            //     end = '<span class="">홀</span>'
+            // } 
             
-            let tr = document.createElement('tr');
-            tr.innerHTML = `<td>${id}</td><td>${start}</td><td>${data.bridges}</td><td>${end}</td>`
-            let tbody = document.getElementById('tbody')
-            tbody.insertBefore(tr, tbody.childNodes[0]);
+            // let tr = document.createElement('tr');
+            // tr.innerHTML = `<td>${id}</td><td>${start}</td><td>${data.bridges}</td><td>${end}</td>`
+            // let tbody = document.getElementById('tbody')
+            // tbody.insertBefore(tr, tbody.childNodes[0])
         })
       }
     }
 
-    function getCurrentID(){
-        let d = new Date();
-        return parseInt((d.getHours()*60 + d.getMinutes())/3) + 1
-    }
-    console.log(getCurrentID())
-
     myGameArea.init();
-    // $.get(`/select/${id}`, function(res){
-    //     console.log(res)
-    //     const data = JSON.parse(res)
-    //     console.log(data, id)
-    //     startGame(data.bridges, data.start)
-    // })
 </script>
 {% else %}
     {{res.REMOTE_ADDR}}

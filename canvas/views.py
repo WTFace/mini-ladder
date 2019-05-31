@@ -18,8 +18,9 @@ def ladder(req):
     history = Result.objects.filter(pk__lte=game_id).order_by('-id')
     return render(req, 'canvas/ladder.html', {
         'res':res, 
-        'allowed':['182.23.209.69', '127.0.0.1', '180.232.154.50'],
-        'history':history
+        'allowed':['182.23.209.69', '127.0.0.1', '180.232.154.50', '175.176.41.153', '112.201.171.173'],
+        'history':history,
+        'game_id':game_id,
     })
 
 def get_one(req, id):
