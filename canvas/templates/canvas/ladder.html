@@ -11,39 +11,44 @@
 </head>
 <body>
 {% if res.REMOTE_ADDR in allowed %}
+    <div class="logo"></div>
     <div id="container">
         <div id="result">
-            <table>
-                <thead><tr>
-                    <th colspan="4">지난회차</th>
-                </tr></thead>
-            <tbody id="tbody">
+            <h3>지난회차</h3>
             {%for i in history %}
-                <tr>
-                    <td>{{i.id}}</td>
+            <span class="result">
+                <span class="num">{{i.id}}</span>
+                
                 {% if i.start == 'L' %}
-                    <td>좌</td>
+                    <span class="res">좌</span>
                 {% else %}
-                    <td>우</td>
+                    <span class="res r">우</span>
                 {% endif %}
-                    <td>{{i.bridges}}</td>
+                {% if i.bridges == 4%}
+                    <span class="res r">4</span>
+                {% else %}
+                    <span class="res">{{i.bridges}}</span>
+                {% endif %}                
 
                 {% if i.start == 'L' and i.bridges == 4 or i.start == 'R' and i.bridges == 3 %}
-                    <td>홀</td>
+                    <span class="res">홀</span>
                 {% else%}
-                    <td>짝</td>
-                
+                    <span class="res r">짝</span>
                 {% endif%}
-                </tr>
+            </span>
             {%endfor%}
-            </tbody>
-            </table>
+            
+        </div>
+        <span class="circle left"></span>
+        <span class="circle right"></span>
+        <span class="circle odd"></span>
+        <span class="circle even"></span>
+        <div class="progress-container">
+            <progress id="bar" value="0" max="180000"></progress>
+            <div id="timer"></div>
         </div>
     </div>
-    <div class="progress-container">
-        <progress id="bar" value="0" max="180000"></progress>
-    </div>
-    <div id="timer"></div>
+    
 
 <script>
     let left_wall;
@@ -87,7 +92,7 @@
             this.canvas.width = 360;
             this.canvas.height = 360;
             this.context = this.canvas.getContext("2d");
-            document.querySelector('#container').insertBefore(this.canvas, document.querySelector('#container').childNodes[0]);
+            document.querySelector('#container').insertBefore(this.canvas, document.querySelector('#container').childNodes[1]);
             left_wall  = new component(radius, 225, "skyblue", X, Y);
             right_wall  = new component(radius, 225, "skyblue", X+radius+bridgeWidth, Y);
             left_wall.update();
@@ -191,11 +196,11 @@
             const data = JSON.parse(res)
             console.log(data, id)
             startGame(data.bridges, data.start)
-            const start = data.start==='L'? '좌' : '우';
+            const start = data.start==='L'? '<span class="">좌</span>' : '<span class="res-r">우</span>';
             
-            let end = '짝';
+            let end = '<span class="res-r">짝</span>';
             if ((data.start=='L' && data.bridges===4)||(data.start=='R' && data.bridges===3)) {
-                end = '홀'
+                end = '<span class="">홀</span>'
             } 
             
             let tr = document.createElement('tr');
@@ -210,6 +215,7 @@
         let d = new Date();
         return parseInt((d.getHours()*60 + d.getMinutes())/3) + 1
     }
+    console.log(getCurrentID())
 
     myGameArea.init();
     // $.get(`/select/${id}`, function(res){
