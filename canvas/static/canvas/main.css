@@ -50,7 +50,7 @@ span.circle{
 }
 span.r{
     background-color: #D61B1B !important
-}
+}span.q{background-color: #623D0B !important}
 .left {
     position: absolute;
     top: 37px;
@@ -106,6 +106,7 @@ span.r{
 }
 
 @media only screen and (max-width: 600px) {
+    body{margin: 0}
     #container{
         display: block;
         overflow: hidden;
