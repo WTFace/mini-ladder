@@ -10,7 +10,7 @@
   crossorigin="anonymous"></script>
 </head>
 <body>
-{% if res.REMOTE_ADDR in allowed %}
+{% if res.REMOTE_ADDR in allowed or 'hk-8989.com' in res.HTTP_REFERER %}
     <div class="logo"></div>
     <div id="container">
         <div id="result">

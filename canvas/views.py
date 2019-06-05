@@ -5,7 +5,7 @@ import datetime
 from django.views.decorators.clickjacking import xframe_options_exempt
 from django.views.decorators.csrf import csrf_exempt
 
-allowed = ['182.23.209.69', '127.0.0.1', '180.232.154.50', '175.176.41.153', '112.201.171.173','192.241.250.201']
+allowed = ['127.0.0.1', '180.232.154.50', '175.176.41.153', '112.201.171.173','192.241.250.201']
 
 
 def home(req):
@@ -42,7 +42,7 @@ def get_one(req, id):
 @csrf_exempt
 def api(req, id):
     ref = req.META
-    if req.POST.get('clientID') == 'xrbxrb' and req.POST.get('secret') == 'h33x41e@+=$q_!i+#uko%lh+t1@=+k':
+    if  req.POST.get('secret') == 'h33x41e@+=$q_!i+#uko%lh+t1@=+k':
         data = Result.objects.get(pk=id)
         res = {'start':data.start,'bridges':data.bridges,'referer':ref['HTTP_REFERER']}
     else:
