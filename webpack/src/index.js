@@ -32,7 +32,6 @@ function startGame(n, side) {
     }else{
         ball = new component(radius, radius, ballColor, X+radius+bridgeWidth, Y);
     }
-
     myGameArea.run();
 }
 
@@ -100,7 +99,6 @@ function component(width, height, color, x, y) {
         }
         return false
     }
-
 }
 
 function updateGameArea() {
@@ -115,7 +113,6 @@ function updateGameArea() {
         ball.speedX = 0
     }
     
-    // if ((ball.crashBot(bridge)|| ball.crashBot(bridge2) || ball.crashBot(bridge3)) && ball.speedY===1) {
     if (ball.crashBridge() && ball.speedY===1) {
         ball.speedY = 0
         if (ball.x>X+radius) {
@@ -126,6 +123,7 @@ function updateGameArea() {
         // console.log(`x:${ball.x}, speedX:${ball.speedX}, wasLeft:${ball.wasLeft}`)
     }
     if (ball.y > left_wall.y + left_wall.height-ball.height){
+        ball.speedX;ball.speedY;
         myGameArea.stop();
         setTimeout(function(){
             location.reload()
@@ -154,20 +152,8 @@ function refreshGame() {
         console.log(data, id)
         startGame(data.bridges, data.start)
         $('.progress-container').toggle()
-        // const start = data.start==='L'? '<span class="">좌</span>' : '<span class="res-r">우</span>';
-        
-        // let end = '<span class="res-r">짝</span>';
-        // if ((data.start=='L' && data.bridges===4)||(data.start=='R' && data.bridges===3)) {
-        //     end = '<span class="">홀</span>'
-        // } 
-        
-        // let tr = document.createElement('tr');
-        // tr.innerHTML = `<td>${id}</td><td>${start}</td><td>${data.bridges}</td><td>${end}</td>`
-        // let tbody = document.getElementById('tbody')
-        // tbody.insertBefore(tr, tbody.childNodes[0])
     })
   }
 }
 
 myGameArea.init();
-// startGame(4, 'L');$('.progress-container').toggle()

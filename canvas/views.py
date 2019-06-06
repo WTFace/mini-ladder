@@ -44,7 +44,7 @@ def api(req, id):
     ref = req.META
     if  req.POST.get('secret') == 'h33x41e@+=$q_!i+#uko%lh+t1@=+k':
         data = Result.objects.get(pk=id)
-        res = {'start':data.start,'bridges':data.bridges,'referer':ref['HTTP_REFERER']}
+        res = {'start':data.start,'bridges':data.bridges}
     else:
         res = {'face': '>_<', 'finger': '_|_'}
     

@@ -27,7 +27,12 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['148.72.213.133', 'localhost']
 
+CORS_ORIGIN_ALLOW_ALL = False
 
+CORS_ORIGIN_WHITELIST = (
+    'http://sc2.ka-p.net',
+    'http://hk-8989.com',  # <----- 확인. 프로토콜, 도메인 둘다
+)
 # Application definition
 
 INSTALLED_APPS = [
@@ -38,9 +43,10 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'corsheaders',
 ]
 
-MIDDLEWARE = [
+MIDDLEWARE = ['corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
