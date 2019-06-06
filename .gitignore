@@ -4,4 +4,4 @@ db.sqlite3
 .idea/
 __pycache__/
 migrations/
-webpack/node-modules/
+webpack/node_modules/
