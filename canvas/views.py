@@ -5,7 +5,7 @@ import datetime
 from django.views.decorators.clickjacking import xframe_options_exempt
 from django.views.decorators.csrf import csrf_exempt
 
-allowed = ['127.0.0.1', '180.232.154.50', '175.176.41.153', '112.201.171.173','192.241.250.201']
+allowed = ['127.0.0.1', '148.72.213.133', '180.232.154.50', '175.176.41.153', '112.201.171.173','192.241.250.201']
 
 
 def home(req):
@@ -30,11 +30,8 @@ def ladder(req):
 
 def get_one(req, id):
     ref = req.META
-    if ref['REMOTE_ADDR'] in allowed:
-        data = Result.objects.get(pk=id)
-        res = {'start':data.start,'bridges':data.bridges}
-    else:
-        res = {'face': '>_<', 'finger': '_|_'}
+    data = Result.objects.get(pk=id)
+    res = {'start':data.start,'bridges':data.bridges}
     
     return HttpResponse(JsonResponse(res))
 
@@ -42,9 +39,14 @@ def get_one(req, id):
 @csrf_exempt
 def api(req, id):
     ref = req.META
-    if  req.POST.get('secret') == 'h33x41e@+=$q_!i+#uko%lh+t1@=+k':
+    now = datetime.datetime.now()
+    nowDate = now.strftime('%Y-%m-%d')
+    game_id = int((now.hour*60 + now.minute)/3)
+
+    if  req.POST.get('secret') == 'h33x41e@+=$q_!i+#uko%lh+t1@=+k' and id <= game_id:
         data = Result.objects.get(pk=id)
-        res = {'start':data.start,'bridges':data.bridges}
+        ##res = {'start':data.start,'bridges':data.bridges}
+        res = {'date':nowDate, 'start':data.start,'bridges':data.bridges}
     else:
         res = {'face': '>_<', 'finger': '_|_'}
     
