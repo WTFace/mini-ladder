@@ -138,22 +138,24 @@ function updateGameArea() {
 let myVar = setInterval(refreshGame, 1000);
 
 function refreshGame() {
-  let d = new Date();
-  d.setSeconds(d.getSeconds()-12)
-  // const id = '{{next_id}}'==481 ? 1 : parseInt('{{next_id}}')
-  val += 1
-  let secs = 180 - val;
-  document.querySelector("#timer span").innerHTML = parseInt(secs/60)+'분 '+ secs%60+'초 후 '+ id +'회차 시작';
-  document.querySelector("progress").value = val
-  if (d.getMinutes()%3===0 && d.getSeconds()===0) {
-    val = 0
-    $.get(`/select/${id}`, function(res){
-        const data = JSON.parse(res)
-        console.log(data, id)
-        startGame(data.bridges, data.start)
-        $('.progress-container').toggle()
-    })
-  }
+  if (document.referrer.includes('hk-8989.com')) {
+      let d = new Date();
+      d.setSeconds(d.getSeconds()-12)
+      // const id = '{{next_id}}'==481 ? 1 : parseInt('{{next_id}}')
+      val += 1
+      let secs = 180 - val;
+      document.querySelector("#timer span").innerHTML = parseInt(secs/60)+'분 '+ secs%60+'초 후 '+ id +'회차 시작';
+      document.querySelector("progress").value = val
+      if (d.getMinutes()%3===0 && d.getSeconds()===0) {
+        val = 0
+        $.get(`/select/${id}`, function(res){
+            const data = JSON.parse(res)
+            console.log(data, id)
+            startGame(data.bridges, data.start)
+            $('.progress-container').toggle()
+        })
+      }
+    }
 }
 
 myGameArea.init();
