@@ -31,7 +31,7 @@ CORS_ORIGIN_ALLOW_ALL = False
 
 CORS_ORIGIN_WHITELIST = (
     'http://sc2.ka-p.io',
-    'http://hk-8989.com',  # <----- 확인. 프로토콜, 도메인 둘다
+    'http://hhk-7979.com',  # <----- 확인. 프로토콜, 도메인 둘다
 )
 # Application definition
 
