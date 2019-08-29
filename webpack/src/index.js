@@ -138,7 +138,7 @@ function updateGameArea() {
 let myVar = setInterval(refreshGame, 1000);
 
 function refreshGame() {
-  if (document.referrer.includes('hhk-7979.com')) {
+  if (document.referrer.includes('jtg-7979.com')) {
       let d = new Date();
       d.setSeconds(d.getSeconds()-12)
       // const id = '{{next_id}}'==481 ? 1 : parseInt('{{next_id}}')
