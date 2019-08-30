@@ -120,13 +120,12 @@ function updateGameArea() {
         }else{
             ball.speedX = 2
         }
-        // console.log(`x:${ball.x}, speedX:${ball.speedX}, wasLeft:${ball.wasLeft}`)
     }
     if (ball.y > left_wall.y + left_wall.height-ball.height){
         ball.speedX;ball.speedY;
         myGameArea.stop();
         setTimeout(function(){
-            location.reload()
+            location.reload(true)
         }, 4000)
     } 
     
@@ -138,10 +137,9 @@ function updateGameArea() {
 let myVar = setInterval(refreshGame, 1000);
 
 function refreshGame() {
-  if (document.referrer.includes('jtg-7979.com') || document.referrer.includes('sc2.ka-p.io')) {
+  if (document.referrer.includes('jtg-7979.com') || document.referrer.includes('sc2.ka-p.io') || document.referrer.includes('148.72.213.133:8000/dari')) {
       let d = new Date();
       d.setSeconds(d.getSeconds()-12)
-      // const id = '{{next_id}}'==481 ? 1 : parseInt('{{next_id}}')
       val += 1
       let secs = 180 - val;
       document.querySelector("#timer span").innerHTML = parseInt(secs/60)+'분 '+ secs%60+'초 후 '+ id +'회차 시작';
