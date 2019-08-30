@@ -42,11 +42,12 @@ def api(req, id):
     now = datetime.datetime.now()
     nowDate = now.strftime('%Y-%m-%d')
     game_id = int((now.hour*60 + now.minute)/3)
+    if game_id == 0: game_id = 480
 
     if  req.POST.get('secret') == 'h33x41e@+=$q_!i+#uko%lh+t1@=+k' and id <= game_id:
         data = Result.objects.get(pk=id)
         ##res = {'start':data.start,'bridges':data.bridges}
-        res = {'date':nowDate, 'start':data.start,'bridges':data.bridges}
+        res = {'date':nowDate, 'start':data.start,'bridges':data.bridges, 'game_id':game_id}
     else:
         res = {'face': '>_<', 'finger': '_|_'}
     
