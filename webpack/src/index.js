@@ -137,7 +137,7 @@ function updateGameArea() {
 let myVar = setInterval(refreshGame, 1000);
 
 function refreshGame() {
-  if (document.referrer.includes('jtg-7979.com') || document.referrer.includes('sc2.ka-p.io') || document.referrer.includes('148.72.213.133:8000/dari')) {
+  if (document.referrer.includes('jgm-79.com') || document.referrer.includes('sc2.ka-p.io') || document.referrer.includes('148.72.213.133:8000/dari')) {
       let d = new Date();
       d.setSeconds(d.getSeconds()-12)
       val += 1
