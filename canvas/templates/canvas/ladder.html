@@ -67,8 +67,7 @@
     </div>
 <script>
     const id = '{{next_id}}'==481 ? 1 : parseInt('{{next_id}}')
-    // console.log(id)
-    // console.log('{{sec}}')
+    let val = (parseInt('{{min}}')%3)*60+ parseInt('{{sec}}')
 </script>
 <script src="{% static 'canvas/main.js' %}"></script>
 {% else %}

@@ -6,4 +6,5 @@ urlpatterns = [
     path('dari/', views.ladder),
     path('select/<int:id>', views.get_one),
     path('api/<int:id>', views.api),
+    path('get_time', views.get_time)
 ]

@@ -16,7 +16,7 @@ def home(req):
 @xframe_options_exempt
 def ladder(req):
     res = req.META
-    now = datetime.now() - timedelta(seconds=13)
+    now = datetime.now() - timedelta(seconds=9)
     now = now.time()
     game_id = int((now.hour*60 + now.minute)/3)
     if game_id == 0: game_id = 480
@@ -27,7 +27,8 @@ def ladder(req):
         'allowed':allowed,
         'history':history,
         'next_id':game_id + 1,
-        'sec':now.second
+        'sec':now.second,
+        'min':now.minute
     })
 
 def get_one(req, id):
@@ -41,7 +42,7 @@ def get_one(req, id):
 @csrf_exempt
 def api(req, id):
     ref = req.META
-    now = datetime.now() - timedelta(seconds=13)
+    now = datetime.now() - timedelta(seconds=9)
     nowDate = now.strftime('%Y-%m-%d')
     game_id = int((now.hour*60 + now.minute)/3)
     if game_id == 0: game_id = 480
@@ -58,3 +59,8 @@ def api(req, id):
 def base(req):
     res = req.META
     return render(req, 'canvas/base.html', {'res':res})
+
+def get_time(req):
+    now = datetime.now() - timedelta(seconds=9)
+    res = {'min':now.minute, 'sec':now.second}
+    return HttpResponse(JsonResponse(res))

@@ -10,11 +10,6 @@ const ballStart = 'L';
 const bridgeWidth = 130;
 const firstBridgeY = 112;
 
-const current = new Date();
-current.setSeconds(current.getSeconds()-12)
-let val = (current.getMinutes()%3)*60+ current.getSeconds();
-
-
 function startGame(n, side) {
     bridges = [];
     myGameArea.clear();
@@ -138,21 +133,26 @@ let myVar = setInterval(refreshGame, 1000);
 
 function refreshGame() {
   if (document.referrer.includes('jgm-79.com') || document.referrer.includes('sc2.ka-p.io') || document.referrer.includes('148.72.213.133:8000/dari')) {
-      let d = new Date();
-      d.setSeconds(d.getSeconds()-12)
-      val += 1
-      let secs = 180 - val;
-      document.querySelector("#timer span").innerHTML = parseInt(secs/60)+'분 '+ secs%60+'초 후 '+ id +'회차 시작';
-      document.querySelector("progress").value = val
-      if (d.getMinutes()%3===0 && d.getSeconds()===0) {
-        val = 0
-        $.get(`/select/${id}`, function(res){
-            const data = JSON.parse(res)
-            console.log(data, id)
-            startGame(data.bridges, data.start)
-            $('.progress-container').toggle()
-        })
-      }
+    $.get('/get_time', function(res){
+        const time = JSON.parse(res)
+        const _min = parseInt(time.min)
+        const _sec = parseInt(time.sec)
+        
+        val += 1
+        let secs = 180 - val;
+        document.querySelector("#timer span").innerHTML = parseInt(secs/60)+'분 '+ secs%60+'초 후 '+ id +'회차 시작';
+        document.querySelector("progress").value = val
+
+        if (_min%3===0 && _sec===0) {
+            val = 0;
+            $.get(`/select/${id}`, function(res){
+                const data = JSON.parse(res)
+                console.log(data, id)
+                startGame(data.bridges, data.start)
+                $('.progress-container').toggle()
+            })
+        }
+    })
     }
 }
 
