@@ -69,7 +69,7 @@
     const id = '{{next_id}}'==481 ? 1 : parseInt('{{next_id}}')
     let val = (parseInt('{{min}}')%3)*60+ parseInt('{{sec}}')
 </script>
-<script src="{% static 'canvas/main.js' %}"></script>
+<script src="{% static 'canvas/main.js' %}?{% now 'U' %}"></script>
 {% else %}
     {{res.REMOTE_ADDR}}
     <li>HTTP_REFERER {{res.HTTP_REFERER}}</li>
