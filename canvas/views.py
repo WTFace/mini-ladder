@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from .models import Result
 from django.http import JsonResponse,HttpResponse
-import datetime
+from datetime import datetime, timedelta
 from django.views.decorators.clickjacking import xframe_options_exempt
 from django.views.decorators.csrf import csrf_exempt
 
@@ -16,7 +16,8 @@ def home(req):
 @xframe_options_exempt
 def ladder(req):
     res = req.META
-    now = datetime.datetime.now().time()
+    now = datetime.now() - timedelta(seconds=13)
+    now = now.time()
     game_id = int((now.hour*60 + now.minute)/3)
     if game_id == 0: game_id = 480
     history = Result.objects.filter(pk__lte=game_id).order_by('-id')
@@ -26,6 +27,7 @@ def ladder(req):
         'allowed':allowed,
         'history':history,
         'next_id':game_id + 1,
+        'sec':now.second
     })
 
 def get_one(req, id):
@@ -39,7 +41,7 @@ def get_one(req, id):
 @csrf_exempt
 def api(req, id):
     ref = req.META
-    now = datetime.datetime.now()
+    now = datetime.now() - timedelta(seconds=13)
     nowDate = now.strftime('%Y-%m-%d')
     game_id = int((now.hour*60 + now.minute)/3)
     if game_id == 0: game_id = 480
