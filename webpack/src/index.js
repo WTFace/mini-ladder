@@ -132,7 +132,7 @@ function updateGameArea() {
 let myVar = setInterval(refreshGame, 1000);
 
 function refreshGame() {
-  if (document.referrer.includes('jgm-79.com') || document.referrer.includes('sc2.ka-p.io') || document.referrer.includes('148.72.213.133:8000/dari')) {
+  if (document.referrer.includes('jgm-7979.com') || document.referrer.includes('jgm-999.com') || document.referrer.includes('sc2.ka-p.io') || document.referrer.includes('148.72.213.133:8000/dari')) {
     $.get('/get_time', function(res){
         const time = JSON.parse(res)
         const _min = parseInt(time.min)
