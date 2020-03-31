@@ -1,1 +1,159 @@
-var _0x3e58=["#timer span","회차 시작","progress","value","/select/","parse","log","bridges","start",".progress-container","toggle","init","exports","call","defineProperty","undefined","toStringTag","__esModule","object","create","string","bind","hasOwnProperty","#623D0B","yellow","clear","update","push","run","createElement","canvas","width","context","getContext","querySelector","#container","insertBefore","childNodes","interval","clearRect","height","speedX","speedY","fillStyle","fillRect","globalCompositeOperation","crashRight","crashLeft","crashBridge","wasLeft","reload","jgm-7979.com","referrer","includes","jgm-999.com","148.72.213.133:8000/dari","get","/get_time","min","sec"];!function(e,x){!function(x){for(;--x;)e.push(e.shift())}(++x)}(_0x3e58,492);var _0x47ee=function(e,x){return _0x3e58[e-=0]};!function(e){var x={};function t(n){if(x[n])return x[n][_0x47ee("0x0")];var i=x[n]={i:n,l:!1,exports:{}};return e[n][_0x47ee("0x1")](i.exports,i,i.exports,t),i.l=!0,i[_0x47ee("0x0")]}t.m=e,t.c=x,t.d=function(e,x,n){t.o(e,x)||Object[_0x47ee("0x2")](e,x,{enumerable:!0,get:n})},t.r=function(e){typeof Symbol!==_0x47ee("0x3")&&Symbol[_0x47ee("0x4")]&&Object[_0x47ee("0x2")](e,Symbol.toStringTag,{value:"Module"}),Object[_0x47ee("0x2")](e,_0x47ee("0x5"),{value:!0})},t.t=function(e,x){if(1&x&&(e=t(e)),8&x)return e;if(4&x&&typeof e===_0x47ee("0x6")&&e&&e[_0x47ee("0x5")])return e;var n=Object[_0x47ee("0x7")](null);if(t.r(n),Object[_0x47ee("0x2")](n,"default",{enumerable:!0,value:e}),2&x&&typeof e!=_0x47ee("0x8"))for(var i in e)t.d(n,i,function(x){return e[x]}[_0x47ee("0x9")](null,i));return n},t.n=function(e){var x=e&&e[_0x47ee("0x5")]?function(){return e.default}:function(){return e};return t.d(x,"a",x),x},t.o=function(e,x){return Object.prototype[_0x47ee("0xa")][_0x47ee("0x1")](e,x)},t.p="",t(t.s=0)}([function(e,x){let t,n,i,_=[];const r=_0x47ee("0xb"),o=_0x47ee("0xc"),c=95,s=70,u=18,a=130,l=112;let f={canvas:document[_0x47ee("0x11")](_0x47ee("0x12")),init:function(){this[_0x47ee("0x12")][_0x47ee("0x13")]=360,this[_0x47ee("0x12")].height=360,this[_0x47ee("0x14")]=this[_0x47ee("0x12")][_0x47ee("0x15")]("2d"),document[_0x47ee("0x16")](_0x47ee("0x17"))[_0x47ee("0x18")](this.canvas,document[_0x47ee("0x16")](_0x47ee("0x17"))[_0x47ee("0x19")][1]),t=new d(u,225,r,c,s),n=new d(u,225,r,c+u+a,s),t[_0x47ee("0xe")](),n.update()},run:function(){this[_0x47ee("0x1a")]=setInterval(h,10)},clear:function(){this[_0x47ee("0x14")][_0x47ee("0x1b")](0,0,this[_0x47ee("0x12")].width,this[_0x47ee("0x12")][_0x47ee("0x1c")])},stop:function(){clearInterval(this[_0x47ee("0x1a")])}};function d(e,x,t,n,i){this.width=e,this.height=x,this[_0x47ee("0x1d")]=0,this[_0x47ee("0x1e")]=1,this.x=n,this.y=i,this.wasLeft=0,n<100&&(this.wasLeft=1),this.update=function(){ctx=f[_0x47ee("0x14")],ctx[_0x47ee("0x1f")]=t,ctx[_0x47ee("0x20")](this.x,this.y,this[_0x47ee("0x13")],this[_0x47ee("0x1c")]),ctx[_0x47ee("0x21")]="srouce-over"},this[_0x47ee("0x22")]=function(e){let x=!0;return this.x<e.x&&(x=!1),x},this[_0x47ee("0x23")]=function(e){let x=!0;return this.x>e.x&&(x=!1),x},this[_0x47ee("0x24")]=function(){let e=this.y;for(b of _)if(e===b.y)return!0;return!1}}function h(){(i.crashRight(n)&&1===i[_0x47ee("0x25")]||i[_0x47ee("0x23")](t)&&0===i[_0x47ee("0x25")])&&(0!==i[_0x47ee("0x1d")]&&(i.y+=1),i.x>c+u?i[_0x47ee("0x25")]=0:i[_0x47ee("0x25")]=1,i[_0x47ee("0x1e")]=1,i[_0x47ee("0x1d")]=0),i[_0x47ee("0x24")]()&&1===i[_0x47ee("0x1e")]&&(i.speedY=0,i.x>c+u?i[_0x47ee("0x1d")]=-2:i[_0x47ee("0x1d")]=2),i.y>t.y+t[_0x47ee("0x1c")]-i.height&&(i[_0x47ee("0x1d")],i[_0x47ee("0x1e")],f.stop(),setTimeout(function(){location[_0x47ee("0x26")](!0)},4e3)),i[_0x47ee("0xe")](),i.x+=i[_0x47ee("0x1d")],i.y+=i[_0x47ee("0x1e")]}setInterval(function(){(document.referrer.includes(_0x47ee("0x27"))||document[_0x47ee("0x28")][_0x47ee("0x29")](_0x47ee("0x2a"))||document[_0x47ee("0x28")].includes("sc2.ka-p.io")||document[_0x47ee("0x28")][_0x47ee("0x29")](_0x47ee("0x2b")))&&$[_0x47ee("0x2c")](_0x47ee("0x2d"),function(e){const x=JSON.parse(e),h=parseInt(x[_0x47ee("0x2e")]),p=parseInt(x[_0x47ee("0x2f")]);val+=1;let g=180-val;document[_0x47ee("0x16")](_0x47ee("0x30")).innerHTML=parseInt(g/60)+"분 "+g%60+"초 후 "+id+_0x47ee("0x31"),document.querySelector(_0x47ee("0x32"))[_0x47ee("0x33")]=val,h%3==0&&0===p&&(val=0,$.get(_0x47ee("0x34")+id,function(e){const x=JSON[_0x47ee("0x35")](e);console[_0x47ee("0x36")](x,id),function(e,x){_=[],f[_0x47ee("0xd")](),t[_0x47ee("0xe")](),n[_0x47ee("0xe")]();for(var h=0;h<e;h++){let x=l;3===e&&(x+=u),_[_0x47ee("0xf")](new d(a,u,r,c+u,x+u*h*2)),_[h][_0x47ee("0xe")]()}i=new d(u,u,o,"L"===x?c:c+u+a,s),f[_0x47ee("0x10")]()}(x[_0x47ee("0x37")],x[_0x47ee("0x38")]),$(_0x47ee("0x39"))[_0x47ee("0x3a")]()}))})},1e3);f[_0x47ee("0x3b")]()}]);
+let left_wall;
+let right_wall;
+let ball;
+let bridges = []
+const barColor = '#623D0B';
+const ballColor = 'yellow';
+const X = 95; const Y = 70;
+const radius = 18;
+const ballStart = 'L';
+const bridgeWidth = 130;
+const firstBridgeY = 112;
+
+function startGame(n, side) {
+    bridges = [];
+    myGameArea.clear();
+    left_wall.update();right_wall.update();
+
+    for (var i = 0; i < n; i++) {
+        let _firstY = firstBridgeY;
+        if(n===3) _firstY += radius;
+
+        bridges.push(new component(bridgeWidth, radius, barColor, X+radius, _firstY+radius*i*2));
+        bridges[i].update()
+    }
+    if (side === 'L') {
+        ball = new component(radius, radius, ballColor, X, Y);
+    }else{
+        ball = new component(radius, radius, ballColor, X+radius+bridgeWidth, Y);
+    }
+    myGameArea.run();
+}
+
+let myGameArea = {
+    canvas : document.createElement("canvas"),
+    init: function(){
+        this.canvas.width = 360;
+        this.canvas.height = 360;
+        this.context = this.canvas.getContext("2d");
+        document.querySelector('#container').insertBefore(this.canvas, document.querySelector('#container').childNodes[1]);
+        left_wall  = new component(radius, 225, barColor, X, Y);
+        right_wall  = new component(radius, 225, barColor, X+radius+bridgeWidth, Y);
+        left_wall.update();
+        right_wall.update()
+    },
+    run : function() {
+        this.interval = setInterval(updateGameArea, 10);
+    },
+    clear : function() {
+        this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
+    },
+    stop : function() {
+        clearInterval(this.interval);
+    }
+}
+
+function component(width, height, color, x, y) {
+    this.width = width;
+    this.height = height;
+    this.speedX = 0;
+    this.speedY = 1;    
+    this.x = x;
+    this.y = y;
+    this.wasLeft = 0;
+    if (x < 100) this.wasLeft = 1
+    
+    this.update = function() {
+        ctx = myGameArea.context;
+        ctx.fillStyle = color;
+        ctx.fillRect(this.x, this.y, this.width, this.height);
+        ctx.globalCompositeOperation='srouce-over';
+    }
+    this.crashRight = function(otherobj) {
+        let myleft = this.x;
+        let otherleft = otherobj.x;
+        let crash = true;
+        if (myleft < otherleft) {
+            crash = false;
+        }
+        return crash
+    }
+    this.crashLeft = function(otherobj) {
+        let myleft = this.x;
+        let otherleft = otherobj.x;
+        let crash = true;
+        if (myleft > otherleft) {
+            crash = false;
+        }
+        return crash
+    }
+    this.crashBridge = function(){
+        let mytop = this.y;
+        for(b of bridges){
+            if(mytop === b.y) return true
+        }
+        return false
+    }
+}
+
+function updateGameArea() {
+    if ((ball.crashRight(right_wall) && ball.wasLeft===1) || (ball.crashLeft(left_wall)) && ball.wasLeft===0) {
+        if(ball.speedX !==0 ) ball.y += 1
+        if (ball.x>X+radius) {
+            ball.wasLeft = 0
+        }else{
+            ball.wasLeft = 1
+        }
+        ball.speedY = 1
+        ball.speedX = 0
+    }
+    
+    if (ball.crashBridge() && ball.speedY===1) {
+        ball.speedY = 0
+        if (ball.x>X+radius) {
+            ball.speedX = -2
+        }else{
+            ball.speedX = 2
+        }
+    }
+    if (ball.y > left_wall.y + left_wall.height-ball.height){
+        ball.speedX;ball.speedY;
+        myGameArea.stop();
+        setTimeout(function(){
+            location.reload(true)
+        }, 4000)
+    } 
+    
+    ball.update();
+    ball.x += ball.speedX;
+    ball.y += ball.speedY;    
+}
+
+let myVar = setInterval(refreshGame, 1000);
+
+function refreshGame() {
+  if (document.referrer.includes('jgm-7979.com') || document.referrer.includes('jgm-999.com') || document.referrer.includes('sc2.ka-p.io') || document.referrer.includes('148.72.213.133:8080/dari')) {
+    $.get('/get_time', function(res){
+        const time = JSON.parse(res)
+        const _min = parseInt(time.min)
+        const _sec = parseInt(time.sec)
+        
+        val += 1
+        let secs = 180 - val;
+        document.querySelector("#timer span").innerHTML = parseInt(secs/60)+'분 '+ secs%60+'초 후 '+ id +'회차 시작';
+        document.querySelector("progress").value = val
+
+        if (_min%3===0 && _sec===0) {
+            val = 0;
+            $.get(`/select/${id}`, function(res){
+                const data = JSON.parse(res)
+                console.log(data, id)
+                startGame(data.bridges, data.start)
+                $('.progress-container').toggle()
+            })
+        }
+    })
+    }
+}
+
+myGameArea.init();

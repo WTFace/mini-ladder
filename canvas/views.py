@@ -5,7 +5,7 @@ from datetime import datetime, timedelta
 from django.views.decorators.clickjacking import xframe_options_exempt
 from django.views.decorators.csrf import csrf_exempt
 
-allowed = ['127.0.0.1', '148.72.213.133', '180.232.154.50', '175.176.41.153', '112.201.171.173','192.241.250.201']
+allowed = ['127.0.0.1', '148.72.213.133', '180.232.154.50', '175.176.10.158', '112.201.171.173','192.241.250.201']
 
 
 def home(req):
