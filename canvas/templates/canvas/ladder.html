@@ -24,29 +24,29 @@
             <h3 class="history-top"><img src="{% static 'canvas/img/history.png' %}"></h3>
             <span class="result">
                 <span class="num">{{next_id}}</span>
-                <span class="res q">?</span>
-                <span class="res q">?</span>
-                <span class="res q">?</span>
+                <span class="q"><img src="{% static 'canvas/img/qmark.png' %}"></span>
+                <span class="q"><img src="{% static 'canvas/img/qmark.png' %}"></span>
+                <span class="q"><img src="{% static 'canvas/img/qmark.png' %}"></span>
             </span>
             {%for i in history %}
             <span class="result">
                 <span class="num">{{i.id}}</span>
                 
                 {% if i.start == 'L' %}
-                    <span class="res">좌</span>
+                    <span class="res square">좌</span>
                 {% else %}
-                    <span class="res r">우</span>
+                    <span class="res square">우</span>
                 {% endif %}
                 {% if i.bridges == 4%}
-                    <span class="res r">4</span>
+                    <span class="res square">4</span>
                 {% else %}
-                    <span class="res">{{i.bridges}}</span>
+                    <span class="res square">{{i.bridges}}</span>
                 {% endif %}                
 
                 {% if i.start == 'L' and i.bridges == 4 or i.start == 'R' and i.bridges == 3 %}
-                    <span class="res">홀</span>
+                    <span class="res"><img src="{% static 'canvas/img/DOWN.png' %}"></span>
                 {% else%}
-                    <span class="res r">짝</span>
+                    <span class="res"><img src="{% static 'canvas/img/UP.png' %}"></span>
                 {% endif%}
             </span>
             {%endfor%}

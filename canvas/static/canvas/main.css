@@ -13,16 +13,18 @@ canvas {
     border: 2px solid white;
     border-radius: 10px;
 }
-#result span.res{
+span.res{
     line-height: 1.5;
     width: 24px;
     height: 24px;
     padding: 2px;
-    border-radius: 50%;
-    background-color: #1F6BCC;
     border: 1px solid #333;
     color: #fff;
 }
+.res.square{
+    background: url('img/box.png');
+}
+
 #result{
     border:1px solid #d3d3d3;
     /*background-image: linear-gradient(#b1967d, #a28264);*/
@@ -50,9 +52,6 @@ span.circle{
     width: 54px;
     height: 45px;
 }
-span.r{
-    background-color: #D61B1B !important
-}span.q{background-color: #623D0B !important}
 .left {
     position: absolute;
     top: 37px;

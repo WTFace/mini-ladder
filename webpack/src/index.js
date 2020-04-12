@@ -2,7 +2,7 @@ let left_wall;
 let right_wall;
 let ball;
 let bridges = []
-const barColor = '#623D0B';
+const barColor = '#64686e';
 const ballColor = 'yellow';
 const X = 95; const Y = 70;
 const radius = 18;
