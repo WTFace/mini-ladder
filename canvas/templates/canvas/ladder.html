@@ -13,14 +13,11 @@
 </script>
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<link rel="stylesheet" type="text/css" href="{% static 'canvas/main.css' %}">
-<script
-  src="https://code.jquery.com/jquery-3.4.1.min.js"
-  integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
-  crossorigin="anonymous"></script>
+<link rel="stylesheet" type="text/css" href="{% static 'canvas/main.css' %}?{% now 'U' %}">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 </head>
 <body>
-{% if res.REMOTE_ADDR in allowed or 'jgm-999.com' in res.HTTP_REFERER or 'jgm-7979.com' in res.HTTP_REFERER or 'http://sc2.ka-p.io' in res.HTTP_REFERER or '148.72.213.133:8000/dari' in res.HTTP_REFERER %}
+{% if domain in allowed or '148.72.213.133:8000/dari' in res.HTTP_REFERER %}
     <div class="logo"></div>
     <div id="container">
         <div id="result">
@@ -66,10 +63,12 @@
         </div>
     </div>
 <script>
+    const allowed = {{allowed_str|safe}};
     const id = '{{next_id}}'==481 ? 1 : parseInt('{{next_id}}')
     let val = (parseInt('{{min}}')%3)*60+ parseInt('{{sec}}')
 </script>
 <script src="{% static 'canvas/main.js' %}?{% now 'U' %}"></script>
+
 {% else %}
     {{res.REMOTE_ADDR}}
     <li>HTTP_REFERER {{res.HTTP_REFERER}}</li>

@@ -4,8 +4,19 @@ from django.http import JsonResponse,HttpResponse
 from datetime import datetime, timedelta
 from django.views.decorators.clickjacking import xframe_options_exempt
 from django.views.decorators.csrf import csrf_exempt
+import json
 
-allowed = ['127.0.0.1', '148.72.213.133', '180.232.154.50', '175.176.10.158', '112.201.171.173','192.241.250.201']
+
+allowed = [
+    'hm-707.com',
+    'hm-808.com',
+    'hm-7979.com',
+    'hm-7969.com',
+    'jtg-789.com',
+    'jtg-1004.com',
+    'jgm-999.com',
+    'sc2.ka-p.io'
+]
 
 
 def home(req):
@@ -22,13 +33,22 @@ def ladder(req):
     if game_id == 0: game_id = 480
     history = Result.objects.filter(pk__lte=game_id).order_by('-id')
 
+    if 'HTTP_REFERER' in req.META:
+        ref = req.META['HTTP_REFERER']
+        domain = ref.split('/')[2]
+    else:
+        domain = '123'
+
     return render(req, 'canvas/ladder.html', {
         'res':res, 
         'allowed':allowed,
         'history':history,
         'next_id':game_id + 1,
         'sec':now.second,
-        'min':now.minute
+        'min':now.minute,
+        'domain':domain,
+        'allowed': allowed,
+        'allowed_str': json.dumps(allowed)
     })
 
 def get_one(req, id):

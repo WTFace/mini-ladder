@@ -132,26 +132,28 @@ function updateGameArea() {
 let myVar = setInterval(refreshGame, 1000);
 
 function refreshGame() {
-    $.get('/get_time', function(res){
-        const time = JSON.parse(res)
-        const _min = parseInt(time.min)
-        const _sec = parseInt(time.sec)
-        
-        val += 1
-        let secs = 180 - val;
-        document.querySelector("#timer span").innerHTML = parseInt(secs/60)+'분 '+ secs%60+'초 후 '+ id +'회차 시작';
-        document.querySelector("progress").value = val
+    if (allowed.includes(document.referrer.split('/')[2]) || document.referrer.includes('148.72.213.133:8000')) {
+        $.get('/get_time', function(res){
+            const time = JSON.parse(res)
+            const _min = parseInt(time.min)
+            const _sec = parseInt(time.sec)
+            
+            val += 1
+            let secs = 180 - val;
+            document.querySelector("#timer span").innerHTML = parseInt(secs/60)+'분 '+ secs%60+'초 후 '+ id +'회차 시작';
+            document.querySelector("progress").value = val
 
-        if (_min%3===0 && _sec===0) {
-            val = 0;
-            $.get(`/select/${id}`, function(res){
-                const data = JSON.parse(res)
-                console.log(data, id)
-                startGame(data.bridges, data.start)
-                $('.progress-container').toggle()
-            })
-        }
-    })
+            if (_min%3===0 && _sec===0) {
+                val = 0;
+                $.get(`/select/${id}`, function(res){
+                    const data = JSON.parse(res)
+                    console.log(data, id)
+                    startGame(data.bridges, data.start)
+                    $('.progress-container').toggle()
+                })
+            }
+        })
+    }
 }
 
 myGameArea.init();
