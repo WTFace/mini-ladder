@@ -15,7 +15,7 @@ allowed = [
     'jtg-789.com',
     'jtg-1004.com',
     'jgm-999.com',
-    'sc2.ka-p.io'
+    'sc2.ka-p.io',
 ]
 
 
@@ -80,6 +80,7 @@ def base(req):
     res = req.META
     return render(req, 'canvas/base.html', {'res':res})
 
+@csrf_exempt
 def get_time(req):
     now = datetime.now() - timedelta(seconds=9)
     res = {'min':now.minute, 'sec':now.second}

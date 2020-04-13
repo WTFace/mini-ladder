@@ -30,8 +30,14 @@ ALLOWED_HOSTS = ['148.72.213.133', 'localhost']
 CORS_ORIGIN_ALLOW_ALL = False
 
 CORS_ORIGIN_WHITELIST = (
-    'http://sc2.ka-p.io',
+    'http://hm-707.com',
+    'http://hm-808.com',
+    'http://hm-7979.com',
+    'http://hm-7969.com',
+    'http://jtg-789.com',
+    'http://jtg-1004.com',
     'http://jgm-999.com',
+    'http://sc2.ka-p.io',
     'http://jgm-7979.com',
 )
 # Application definition

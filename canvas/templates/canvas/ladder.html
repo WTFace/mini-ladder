@@ -16,8 +16,11 @@
 <link rel="stylesheet" type="text/css" href="{% static 'canvas/main.css' %}?{% now 'U' %}">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 </head>
+<script type="text/javascript">
+    console.log('{{res.HTTP_REFERER}}')
+</script>
 <body>
-{% if domain in allowed or '148.72.213.133:8000/dari' in res.HTTP_REFERER %}
+{% if domain in allowed or '148.72.213.133:8000' in res.HTTP_REFERER %}
     <div class="logo"></div>
     <div id="container">
         <div id="result">
@@ -41,7 +44,7 @@
                     <span class="res square">4</span>
                 {% else %}
                     <span class="res square">{{i.bridges}}</span>
-                {% endif %}                
+                {% endif %}
 
                 {% if i.start == 'L' and i.bridges == 4 or i.start == 'R' and i.bridges == 3 %}
                     <span class="res"><img src="{% static 'canvas/img/DOWN.png' %}"></span>
