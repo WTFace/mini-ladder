@@ -8,13 +8,7 @@ import json
 
 
 allowed = [
-    'hm-707.com',
-    'hm-808.com',
-    'hm-7979.com',
-    'hm-7969.com',
-    'jtg-789.com',
-    'jtg-1004.com',
-    'jgm-999.com',
+    'dice-77.com',
     'sc2.ka-p.io',
 ]
 
