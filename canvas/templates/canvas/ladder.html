@@ -16,40 +16,37 @@
 <link rel="stylesheet" type="text/css" href="{% static 'canvas/main.css' %}?{% now 'U' %}">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 </head>
-<script type="text/javascript">
-    console.log('{{res.HTTP_REFERER}}')
-</script>
 <body>
 {% if domain in allowed or '148.72.213.133:8000' in res.HTTP_REFERER %}
     <div class="logo"></div>
     <div id="container">
         <div id="result">
-            <h3 class="history-top"><img src="{% static 'canvas/img/history.png' %}"></h3>
+            <h3>지난회차</h3>
             <span class="result">
                 <span class="num">{{next_id}}</span>
-                <span class="q"><img src="{% static 'canvas/img/qmark.png' %}"></span>
-                <span class="q"><img src="{% static 'canvas/img/qmark.png' %}"></span>
-                <span class="q"><img src="{% static 'canvas/img/qmark.png' %}"></span>
+                <span class="res q">?</span>
+                <span class="res q">?</span>
+                <span class="res q">?</span>
             </span>
             {%for i in history %}
             <span class="result">
                 <span class="num">{{i.id}}</span>
                 
                 {% if i.start == 'L' %}
-                    <span class="res square">좌</span>
+                    <span class="res">좌</span>
                 {% else %}
-                    <span class="res square">우</span>
+                    <span class="res r">우</span>
                 {% endif %}
                 {% if i.bridges == 4%}
-                    <span class="res square">4</span>
+                    <span class="res r">4</span>
                 {% else %}
-                    <span class="res square">{{i.bridges}}</span>
-                {% endif %}
+                    <span class="res">{{i.bridges}}</span>
+                {% endif %}                
 
                 {% if i.start == 'L' and i.bridges == 4 or i.start == 'R' and i.bridges == 3 %}
-                    <span class="res"><img src="{% static 'canvas/img/DOWN.png' %}"></span>
+                    <span class="res">홀</span>
                 {% else%}
-                    <span class="res"><img src="{% static 'canvas/img/UP.png' %}"></span>
+                    <span class="res r">짝</span>
                 {% endif%}
             </span>
             {%endfor%}
